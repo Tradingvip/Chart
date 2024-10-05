@@ -47,11 +47,19 @@
 
         .logo {
             margin-right: 10px;
+            width: 50px; /* عرض الشعار */
+            height: 50px; /* ارتفاع الشعار */
+            border-radius: 50%; /* جعل الشعار دائري */
+            overflow: hidden; /* إخفاء الزوائد */
+            display: flex; /* لإضافة التنسيق */
+            align-items: center; /* توسيط الصورة عموديًا */
+            justify-content: center; /* توسيط الصورة أفقيًا */
         }
 
         .logo img {
-            width: 50px;
-            height: 50px;
+            width: 100%; /* ملء مساحة الشعار */
+            height: auto; /* الحفاظ على نسبة الطول إلى العرض */
+            display: block; /* إزالة أي فراغات تحت الصورة */
         }
 
         .currency-select {
@@ -96,8 +104,8 @@
         /* وسائل الإعلام لضبط التصميم للشاشات الصغيرة */
         @media (max-width: 768px) {
             .logo img {
-                width: 40px;
-                height: 40px; /* تقليص حجم الشعار */
+                width: 40px; /* تقليل حجم الشعار */
+                height: auto; /* الحفاظ على نسبة الطول إلى العرض */
             }
 
             #tradingview_chart {
