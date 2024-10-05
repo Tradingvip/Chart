@@ -63,19 +63,40 @@
         }
 
         .currency-select {
-            margin-left: 20px; /* إضافة مسافة إلى اليسار */
-            padding: 10px; /* إضافة حشوة لجعل الزر أكبر */
-            font-size: 1em; /* حجم خط الزر */
-            border: none; /* إزالة حدود الزر */
-            border-radius: 5px; /* زوايا دائرية */
-            background-color: #ffffff; /* لون خلفية الزر */
-            color: #333; /* لون النص */
-            cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
-            transition: background-color 0.3s; /* تأثير انتقال */
+            margin-left: 20px;
+            padding: 12px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 220px;
+            background-color: #0088cc; /* اللون الأزرق لتلجرام */
+            color: white; /* جعل النص باللون الأبيض */
         }
 
         .currency-select:hover {
-            background-color: #f0f0f0; /* لون خلفية الزر عند المرور فوقه */
+            background-color: #007bb5; /* لون أغمق قليلاً عند التمرير */
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .currency-select:focus {
+            outline: none; /* إزالة الحد الافتراضي عند التركيز */
+            box-shadow: 0 0 10px rgba(0, 136, 204, 0.5); /* تأثير تركيز */
+        }
+
+        /* تعديل قائمة الخيارات المنبثقة */
+        .currency-select option {
+            padding: 10px; /* إضافة حشوة داخلية للخيارات */
+            background-color: #ffffff; /* خلفية بيضاء للخيارات */
+            color: #333; /* لون النص */
+        }
+
+        .currency-select option:hover {
+            background-color: #e0f7fa; /* تغيير لون الخلفية عند التمرير */
         }
 
         .chart-section {
