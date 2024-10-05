@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شارت عملة رقمية مقابل الدولار - RI Trading Spot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0088cc; /* لون مشابه لتلجرام */
+            text-align: center;
+            direction: rtl;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* تأمين أن الجسم يغطي كامل الشاشة */
+        }
+
+        header {
+            background: linear-gradient(to right, #ffffff, #0088cc); /* تدرج من الأبيض إلى الأزرق */
+            color: #333; /* لون النص */
+            padding: 15px 0;
+            position: relative; /* لتسهيل وضع المستطيل المتحرك */
+            overflow: hidden; /* لإخفاء أي جزء زائد من الحركة */
+        }
+
+        .moving-banner {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff; /* لون خلفية المستطيل */
+            padding: 10px;
+            border-radius: 5px; /* زوايا دائرية */
+            animation: move 3s ease-in-out infinite alternate; /* حركة بسيطة */
+            margin: 0 auto; /* توسيط المستطيل */
+            width: fit-content; /* عرض المستطيل بناءً على المحتوى */
+        }
+
+        @keyframes move {
+            0% {
+                transform: translateY(0); /* الحركة من المكان الأصلي */
+            }
+            100% {
+                transform: translateY(-5px); /* الحركة لأعلى بمقدار 5 بيكسل */
+            }
+        }
+
+        .logo {
+            margin-right: 10px;
+        }
+
+        .logo img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .currency-select {
+            margin-left: 20px; /* إضافة مسافة إلى اليسار */
+            padding: 10px; /* إضافة حشوة لجعل الزر أكبر */
+            font-size: 1em; /* حجم خط الزر */
+            border: none; /* إزالة حدود الزر */
+            border-radius: 5px; /* زوايا دائرية */
+            background-color: #ffffff; /* لون خلفية الزر */
+            color: #333; /* لون النص */
+            cursor: pointer; /* تغيير شكل المؤشر عند المرور فوق الزر */
+            transition: background-color 0.3s; /* تأثير انتقال */
+        }
+
+        .currency-select:hover {
+            background-color: #f0f0f0; /* لون خلفية الزر عند المرور فوقه */
+        }
+
+        .chart-section {
+            padding: 20px;
+            flex: 1; /* السماح للقسم بالامتداد ليملأ المساحة المتبقية */
+        }
+
+        #tradingview_chart {
+            width: 100%;
+            height: 500px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center; /* توسيط نص حقوق الطبع */
+        }
+
+        /* وسائل الإعلام لضبط التصميم للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .logo img {
+                width: 40px;
+                height: 40px; /* تقليص حجم الشعار */
+            }
+
+            #tradingview_chart {
+                height: 400px; /* تقليص ارتفاع الشارت على الشاشات الصغيرة */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column; /* تحويل الشعار والنص إلى عمود */
+            }
+
+            .chart-section {
+                padding: 10px;
+            }
+
+            #tradingview_chart {
+                height: 300px; /* تقليص الشارت أكثر للشاشات الصغيرة جدا */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="moving-banner">
+            <div class="logo">
+                <img src="https://i.suar.me/q4wMl/l" alt="RI Trading Spot Logo">
+            </div>
+            <h1 style="margin: 0; font-size: 1.5em;">RI Trading Spot</h1>
+        </div>
+        <select class="currency-select" id="currency-select" onchange="changeCurrency()">
+            <option value="BINANCE:WAXPUSDT">WAXP مقابل الدولار</option>
+            <option value="BINANCE:SEIUSDT">SEI مقابل الدولار</option>
+            <option value="BINANCE:FETUSDT">FET مقابل الدولار</option>
+            <option value="BINANCE:KSMUSDT">KSM مقابل الدولار</option>
+            <option value="BINANCE:LOKAUSDT">LOKA مقابل الدولار</option>
+            <option value="BINANCE:MTLUSDT">MTL مقابل الدولار</option>
+        </select>
+    </header>
+
+    <section class="chart-section">
+        <div id="tradingview_chart"></div>
+    </section>
+
+    <footer>
+        <p>© 2024 حقوق الطبع محفوظة لقناة RI Trading Spot</p>
+    </footer>
+
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script>
+        let widget; // متغير لتخزين ويدجت الشارت
+
+        function createWidget(symbol) {
+            widget = new TradingView.widget({
+                "width": "100%",
+                "height": 500,
+                "symbol": symbol,
+                "interval": "D",
+                "timezone": "Etc/UTC",
+                "theme": "dark",
+                "style": "1",
+                "locale": "ar",
+                "toolbar_bg": "#f1f3f6",
+                "enable_publishing": false,
+                "allow_symbol_change": true,
+                "container_id": "tradingview_chart"
+            });
+        }
+
+        function changeCurrency() {
+            const select = document.getElementById('currency-select');
+            const newSymbol = select.value; // الحصول على العملة المحددة
+            widget.remove(); // إزالة الويجت الحالي
+            createWidget(newSymbol); // إنشاء الويجت الجديد بالعملة المحددة
+        }
+
+        // رسم الشارت بالعملة الافتراضية عند تحميل الصفحة
+        window.onload = function() {
+            createWidget('BINANCE:WAXPUSDT'); // العملة الافتراضية
+        }
+    </script>
+</body>
+</html>
